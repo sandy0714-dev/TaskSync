@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: tasksync
+    envVars:
+      - key: JAVA_VERSION
+        value: 21
+    runtime: docker
+    repo: https://github.com/yourusername/tasksync
+    plan: free
+    branch: main
+    autoDeploy: true
