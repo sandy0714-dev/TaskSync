@@ -1,11 +1,11 @@
-# Use Tomcat base image
-FROM tomcat:9.0
+# Use official Tomcat base image
+FROM tomcat:9.0-jdk17-temurin
 
-# Clean default ROOT webapp
-RUN rm -rf /usr/local/tomcat/webapps/ROOT
+# Remove default webapps
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy your webapp files to ROOT
-COPY src/main/webapp/ /usr/local/tomcat/webapps/ROOT/
+# Copy your compiled WAR or JSP folder into Tomcat webapps
+COPY target/TaskSync/usr/local/tomcat/webapps/ROOT
 
-# Expose default port
+# Expose port 8080
 EXPOSE 8080
