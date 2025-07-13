@@ -1,14 +1,11 @@
-# Use official Tomcat base image
-FROM tomcat:9.0-jdk17-temurin
+# Use Tomcat base image
+FROM tomcat:9.0
 
-# Remove default webapps
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Clean default ROOT webapp
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
-# Copy your WAR content to Tomcat webapps directory
-COPY target/EmployeeTaskManagement /usr/local/tomcat/webapps/ROOT
+# Copy your webapp files to ROOT
+COPY src/main/webapp/ /usr/local/tomcat/webapps/ROOT/
 
 # Expose default port
 EXPOSE 8080
-
-# Start Tomcat
-CMD ["catalina.sh", "run"]
