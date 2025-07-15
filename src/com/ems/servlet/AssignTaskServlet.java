@@ -12,17 +12,19 @@ public class AssignTaskServlet extends HttpServlet {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         int employeeId = Integer.parseInt(request.getParameter("employee_id"));
-        String deadline = request.getParameter("deadline");
-
+        String deadlineStr = request.getParameter("deadline");
 
         try (Connection con = DBUtil.getConnection()) {
-        	PreparedStatement ps = con.prepareStatement(
-        		    "INSERT INTO tasks (title, description, employee_id, deadline) VALUES (?, ?, ?, ?)");
-        		ps.setString(1, title);
-        		ps.setString(2, description);
-        		ps.setInt(3, employeeId);
-        		ps.setString(4, deadline);
+            PreparedStatement ps = con.prepareStatement(
+                "INSERT INTO tasks (title, description, employee_id, deadline) VALUES (?, ?, ?, ?)"
+            );
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setInt(3, employeeId);
 
+            // ✅ Convert string to java.sql.Date
+            java.sql.Date deadline = java.sql.Date.valueOf(deadlineStr);
+            ps.setDate(4, deadline);
 
             int rows = ps.executeUpdate();
             if (rows > 0) {
