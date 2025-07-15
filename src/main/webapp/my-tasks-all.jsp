@@ -32,8 +32,12 @@
                 PreparedStatement ps = null;
                 ResultSet rs = null;
                 try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ems_java", "root", "");
+                	Class.forName("org.postgresql.Driver");
+                    con = DriverManager.getConnection(
+                		    "jdbc:postgresql://dpg-d1pr6nvfte5s73cldcc0-a.oregon-postgres.render.com:5432/ems_java",
+                		    "ems_user",
+                		    "CShu7tAkPBkcYBIdzmoPpq4RQbY7J6jO"
+                		);
                     String sql = "SELECT t.*, u.full_name FROM tasks t JOIN users u ON t.employee_id = u.id WHERE t.employee_id = ?";
                     ps = con.prepareStatement(sql);
                     ps.setInt(1, userId);

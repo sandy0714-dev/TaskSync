@@ -32,8 +32,12 @@
         <tbody>
         <%
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ems_java", "root", "");
+            	Class.forName("org.postgresql.Driver");
+                con = DriverManager.getConnection(
+            		    "jdbc:postgresql://dpg-d1pr6nvfte5s73cldcc0-a.oregon-postgres.render.com:5432/ems_java",
+            		    "ems_user",
+            		    "CShu7tAkPBkcYBIdzmoPpq4RQbY7J6jO"
+            		);
                 ps = con.prepareStatement("SELECT * FROM users WHERE role = 'employee'");
                 rs = ps.executeQuery();
 
